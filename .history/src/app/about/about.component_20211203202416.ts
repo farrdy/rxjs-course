@@ -26,6 +26,7 @@ export class AboutComponent implements OnInit {
   // ngOnInit() {
   //   const interval$ = timer(3000, 1000);
   //   const sub = interval$.subscribe((val) => console.log("stream 1 =>" + val));
+
   //   setTimeout(() => {
   //     sub.unsubscribe();
   //   }, 10000);
@@ -36,6 +37,7 @@ export class AboutComponent implements OnInit {
   //     () => console.log("completed")
   //   );
   // }
+
   // ngOnInit() {
   //   document.addEventListener("click", (evt) => {
   //     console.log(evt);
@@ -45,35 +47,24 @@ export class AboutComponent implements OnInit {
   //     console.log(counter);
   //     counter++;
   //   }, 1000);
+
   //   setTimeout(() => {
   //     console.log("finished....");
   //   }, 3000);
   // }
-  // ngOnInit() {
-  //   document.addEventListener("click", (evt) => {
-  //     console.log(evt);
-  //     let counter = 0;
-  //     setTimeout(() => {
-  //       console.log("finished....");
-  //       setInterval(() => {
-  //         console.log(counter);
-  //         counter++;
-  //       }, 1000);
-  //     }, 3000);
-  //   });
-  // }
 
   ngOnInit() {
-    //create observable
-    const http$ = createHttpObservable("/api/courses");
+    document.addEventListener("click", (evt) => {
+      console.log(evt);
+      let counter = 0;
+      setInterval(() => {
+        console.log(counter);
+        counter++;
+      }, 1000);
 
-    const courses$ = http$.pipe(map((res) => Object.values(res["payload"])));
-
-    //subscribe to the created observable above
-    courses$.subscribe(
-      (courses) => console.log(courses),
-      noop,
-      () => console.log("completed")
-    );
+      setTimeout(() => {
+        console.log("finished....");
+      }, 3000);
+    });
   }
 }

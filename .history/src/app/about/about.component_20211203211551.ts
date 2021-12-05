@@ -67,10 +67,10 @@ export class AboutComponent implements OnInit {
     //create observable
     const http$ = createHttpObservable("/api/courses");
 
-    const courses$ = http$.pipe(map((res) => Object.values(res["payload"])));
+    const courses$ = http$.pipe(map((res) => res["payload"]));
 
     //subscribe to the created observable above
-    courses$.subscribe(
+    http$.subscribe(
       (courses) => console.log(courses),
       noop,
       () => console.log("completed")

@@ -65,15 +65,31 @@ export class AboutComponent implements OnInit {
 
   ngOnInit() {
     //create observable
-    const http$ = createHttpObservable("/api/courses");
+    const http$ = Observable.create((observer) => {
 
-    const courses$ = http$.pipe(map((res) => Object.values(res["payload"])));
-
+    });
     //subscribe to the created observable above
-    courses$.subscribe(
+    http$.subscribe(
       (courses) => console.log(courses),
       noop,
       () => console.log("completed")
     );
+  }
+
+  function createHttpObservable(url:string){
+    return Observable.create(observer=>{
+      fetch("/api/courses")
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        observer.next(body);
+
+        observer.complete();
+      })
+      .catch((err) => {
+        observer.error(err);
+      });
+    })
   }
 }
